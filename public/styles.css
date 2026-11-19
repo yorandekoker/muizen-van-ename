@@ -82,4 +82,5 @@ svg{display:block}
 .ktile:disabled{opacity:.45;cursor:default}
 #solve{white-space:nowrap;padding:0 12px;flex:none}
 .tmp select{min-width:0;flex:1}
-.tmpbtn{top:792px;width:165px;height:30px;border:1px dashed #999;background:none;border-radius:6px;font:600 13px 'Fira Sans',sans-serif;color:#666;cursor:pointer}
+.tmpbtn{top:776px;width:165px;height:56px;border:1px solid #999;background:#fff;border-radius:8px;font:700 16px 'Fira Sans',sans-serif;color:var(--navy);cursor:pointer;z-index:10}
+.tmpbtn[data-act="solve"]{border:0;background:var(--orange);color:#fff}
