@@ -72,10 +72,11 @@ svg{display:block}
 .full{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#d9d6cf}
 .full.kfull{background:#000}
 .btn.perm{top:660px}
-#testpanel{position:fixed;left:0;right:0;bottom:0;z-index:9;background:#222;color:#fff;padding:8px 12px;font:13px 'Fira Sans',sans-serif;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+#testpanel{position:fixed;left:0;right:0;top:0;z-index:9;background:#222;color:#fff;padding:8px 12px;font:13px 'Fira Sans',sans-serif;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 #testpanel input[type=range]{width:120px}
 #testpanel button{height:30px;border:0;border-radius:5px;font:600 13px 'Fira Sans',sans-serif}
 
 .ktile:disabled{opacity:.45;cursor:default}
 #solve{white-space:nowrap;padding:0 12px;flex:none}
 .tmp select{min-width:0;flex:1}
+.tmpbtn{top:792px;width:165px;height:30px;border:1px dashed #999;background:none;border-radius:6px;font:600 13px 'Fira Sans',sans-serif;color:#666;cursor:pointer}

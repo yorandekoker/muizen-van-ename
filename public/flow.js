@@ -21,7 +21,7 @@
       case 'pick':
         if (s.stage === 'keuze' && ok(n) && !s.found.includes(n)) { s.stage = 'info'; s.item = n; } break;
       case 'back':
-        if (s.stage === 'info') { s.stage = 'keuze'; s.item = null; } break;
+        if (s.stage === 'info'|| s.stage === 'opdr') { s.stage = 'keuze'; s.item = null; } break;
       case 'to_task':
         if (s.stage === 'info') s.stage = 'opdr'; break;
       case 'solve':   /* een post (of de gsm bij post 4 en 5) meldt: opdracht gelukt */
