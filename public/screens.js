@@ -127,7 +127,7 @@ const kijk = (id, ttl, txt) => ({ id, role: ROLE_ALL, body:
   symbolCircle(151, 150, monitorIcon) + title(272, ttl, 'navy') + desc(380, txt) + family(24, 520, true) });
 const PHONE = Object.fromEntries(SCREENS.map(s => [s.id, s]));
 /* TIJDELIJK: terug naar het overzicht en de opdracht als voltooid markeren, tot de echte posten werken */
-const tempBar = `<button class="a tmpbtn" type="button" data-act="back" style="left:24px">&lt; Terug</button><button class="a tmpbtn" type="button" data-act="solve" style="left:201px">Opdracht voltooien</button>`;
+const tempBar = `<div class="phone-temp-actions"><button class="tmpbtn" type="button" data-act="back">&lt; Terug</button><button class="tmpbtn" type="button" data-act="solve">Opdracht voltooien</button></div>`;
 for (let n = 1; n <= 5; n++) PHONE['post' + n].body += tempBar;
 PHONE.kijkVerhaal = kijk('kijkVerhaal', 'Ga naar het muizenhol', 'Het verhaal speelt af op het scherm in het muizenhol. Kijk goed mee!');
 PHONE.kijkKeuze = kijk('kijkKeuze', 'Kies een voorwerp', 'Kies op het scherm in het muizenhol wat jullie willen zoeken.');

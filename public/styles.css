@@ -82,7 +82,11 @@ svg{display:block}
 .ktile:disabled{opacity:.45;cursor:default}
 #solve{white-space:nowrap;padding:0 12px;flex:none}
 .tmp select{min-width:0;flex:1}
-.tmpbtn{top:auto!important;bottom:12px;width:165px;height:56px;border:1px solid #999;background:#fff;border-radius:8px;font:700 16px 'Fira Sans',sans-serif;color:var(--navy);cursor:pointer;z-index:10}
+.phone-temp-actions{position:absolute;left:24px;right:24px;bottom:12px;height:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;z-index:10}
+.clean-phone .phone-body .phone-temp-actions{transform:translateY(72px)}
+.tmpbtn{width:100%;height:56px;border:1px solid #999;background:#fff;border-radius:8px;font:700 16px 'Fira Sans',sans-serif;color:var(--navy);cursor:pointer}
 .tmpbtn[data-act="solve"]{border:0;background:var(--orange);color:#fff}
-.clean-phone .phone-body .btn:not(.perm),.clean-phone .phone-body .link{top:auto!important;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:20}
-.phone-welcome-btn{left:24px}
+.clean-phone .phone-body .btn:not(.perm){top:auto!important;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:20}
+.clean-phone .phone-body .link{top:auto!important;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:20}
+.clean-phone .phone-body .link[data-act="back"]{bottom:calc(128px + env(safe-area-inset-bottom,0px))}
+.clean-phone .phone-body .phone-temp-actions{bottom:12px}
