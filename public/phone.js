@@ -83,8 +83,11 @@ pEl.addEventListener('click', async (e) => {
 
 function fit() {
   const box = document.getElementById('pbox').getBoundingClientRect();
-  pEl.style.transform = `scale(${Math.min(box.width / 390, box.height / 844)})`;
+  const vw = window.visualViewport ? window.visualViewport.width : box.width;
+  const vh = window.visualViewport ? window.visualViewport.height : box.height;
+  pEl.style.transform = `scale(${Math.min(vw / 390, vh / 844)})`;
 }
 addEventListener('resize', fit);
+if (window.visualViewport) visualViewport.addEventListener('resize', fit);
 if (/[?&]test=1/.test(location.search)) Sensors.testPanel();
 fit(); render(); openStream();
