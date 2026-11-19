@@ -11,10 +11,10 @@ const sendAct = (type, item) => sid ? post(`/api/sessions/${sid}/action`, { type
 
 function render() {
   const id = Flow.view(state).p, s = PHONE[id];
-  pEl.className = 'screen' + (s.tone ? ' ' + s.tone : '');
+  pEl.className = 'screen clean-phone' + (s.tone ? ' ' + s.tone : '');
   let body = typeof s.body === 'function' ? s.body(state || {}, ctx) : s.body;
   if (state && state.stage === 'opdr' && state.item >= 4 && Sensors.needsPermission() && !permAsked) body += `<button class="a btn perm" data-act="perm">&gt; Sensoren toestaan</button>`;
-  pEl.innerHTML = statusBar + `<div class="a role">${I.user}<span>${s.role}</span></div><div class="a divider"></div>` + body + '<div class="a home"></div>';
+  pEl.innerHTML = `<div class="phone-body">${body}</div><div class="a home"></div>`;
   syncSensors();
 }
 

@@ -36,7 +36,6 @@ ${groundEl(10, 178, 322, 24, ground)}${hole}${mouse(12, 26, 132, 152)}${mouse(19
 
 /* ---------- iconen ---------- */
 const I = {
-  user: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2A4F69" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-4 3-6 6.5-6s6.5 2 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c3 0 4.5 2 4.5 5"/></svg>',
   vib: (c) => `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="${c}" stroke-width="2" aria-hidden="true"><rect x="10" y="4" width="12" height="24" rx="2.5"/><path d="M4 10v12M28 10v12M1 13v6M31 13v6"/></svg>`,
   check: '<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#356242" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 29l14 14L48 12"/></svg>',
   cross: '<svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#99473F" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M10 10l32 32M42 10L10 42"/></svg>',
@@ -47,9 +46,6 @@ const I = {
   square: '<svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#2A4F69" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="24" height="24"/></svg>',
   star: '<svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#2A4F69" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M18 4l4.2 9.4 10.3 1-7.7 6.9 2.2 10.1L18 26l-9 5.4 2.2-10.1-7.7-6.9 10.3-1z"/></svg>'
 };
-const statusBar = `<div class="a statusbar" aria-hidden="true"><span class="a time">9:41</span>
-<svg class="a dev" width="76" height="20" viewBox="0 0 76 20"><g fill="#000"><rect x="0" y="12" width="3" height="5" rx="1"/><rect x="5" y="9" width="3" height="8" rx="1"/><rect x="10" y="6" width="3" height="11" rx="1"/><rect x="15" y="3" width="3" height="14" rx="1"/></g><path d="M25 8a10 10 0 0 1 14 0M28 11.5a6 6 0 0 1 8 0" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="15" r="1.6" fill="#000"/><rect x="50" y="4" width="22" height="12" rx="3.5" fill="none" stroke="#000" stroke-opacity=".4"/><rect x="52" y="6" width="18" height="8" rx="2" fill="#000"/></svg></div>`;
-
 /* ---------- bouwstenen ---------- */
 const ROLE_ALL = 'Voor het hele gezin', ROLE_DUO = 'Voor het kind en de volwassene';
 const title = (top, text, cls) => `<h1 class="a t ${cls || ''}" style="top:${top}px">${text}</h1>`;

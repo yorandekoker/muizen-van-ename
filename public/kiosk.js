@@ -18,7 +18,11 @@ function fit() {
   const box = document.getElementById('kbox').getBoundingClientRect();
   kEl.style.transform = `scale(${Math.min(box.width / 1920, box.height / 1080)})`;
 }
-addEventListener('resize', fit); fit(); render();
+const resizeObserver = new ResizeObserver(fit);
+resizeObserver.observe(document.getElementById('kbox'));
+addEventListener('resize', fit);
+if (window.visualViewport) visualViewport.addEventListener('resize', fit);
+fit(); render();
 const es = new EventSource('/api/kiosk/stream');
 let lastJson = '';
 function setState(st) { const j = JSON.stringify(st); if (j === lastJson) return; lastJson = j; state = st; render(); }

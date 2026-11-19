@@ -16,8 +16,8 @@ ITEMS.forEach((it, i) => det.add(new Option(it.name, i + 1)));
 function render() {
   const v = Flow.view(idle ? null : state), found = new Set((idle ? [] : state.found).map(n => ITEMS[n - 1].id));
   const ps = PHONE[v.p];
-  pEl.className = 'screen' + (ps.tone ? ' ' + ps.tone : '');
-  pEl.innerHTML = statusBar + `<div class="a role">${I.user}<span>${ps.role}</span></div><div class="a divider"></div>` + (typeof ps.body === 'function' ? ps.body(state, {}) : ps.body) + '<div class="a home"></div>';
+  pEl.className = 'screen clean-phone' + (ps.tone ? ' ' + ps.tone : '');
+  pEl.innerHTML = `<div class="phone-body">${typeof ps.body === 'function' ? ps.body(state, {}) : ps.body}</div><div class="a home"></div>`;
   kEl.className = 'kscreen' + (v.k.startsWith('gevonden') ? ' ok' : '');
   kEl.innerHTML = KIOSK[v.k](found);
   const i = LIST.findIndex(l => (l.st === null && idle) || (l.st && !idle && l.st.stage === state.stage && l.st.item === state.item));
