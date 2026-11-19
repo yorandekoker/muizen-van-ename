@@ -52,6 +52,7 @@ svg{display:block}
 .kscreen.ok{background:var(--ok-bg)}
 .kt{left:120px;margin:0;font-size:96px;line-height:104px}
 .kt.navy{color:var(--navy)}.kt.ok{color:var(--ok-title)}
+.kt.found-title{width:1020px;font-size:88px;line-height:96px}
 .kd{left:120px;width:1100px;margin:0;font-size:44px;line-height:60px}
 .kbtn{width:640px;height:120px;border:0;border-radius:10px;font:700 44px 'Fira Sans',sans-serif;color:#fff;background:var(--orange);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .klink{height:90px;border:0;background:none;font:700 40px 'Fira Sans',sans-serif;color:var(--navy);cursor:pointer;text-align:left;padding:0}

@@ -13,7 +13,7 @@ function render() {
 }
 kEl.addEventListener('click', (e) => {
   const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
-  post('/api/kiosk/action', { type: b.dataset.act, item: b.dataset.item ? Number(b.dataset.item) : undefined }).then(r => setState(r));
+  post('/api/kiosk/action', { type: b.dataset.act, item: b.dataset.item ? Number(b.dataset.item) : undefined }).then(r => { if (r && r.stage) setState(r); });
 });
 function fit() {
   const box = document.getElementById('kbox').getBoundingClientRect();

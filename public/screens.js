@@ -169,7 +169,7 @@ ITEMS.forEach((it, i) => {
     kbtn('Naar de opdracht', 'to_task', 860, 640) + klink('&lt; Kies een ander voorwerp', 'back', 860, 800);
   KIOSK['gevonden' + (i + 1)] = (f) =>
     `<div class="a ksym" style="left:120px;top:120px">${I.check.replace('width="56" height="56"', 'width="100" height="100"')}</div>` +
-    kt(330, `${it.name} gevonden!`, 'ok') + kd(450, 'Placeholder: hier komt de tekst bij het voorwerp.', 120, 900) +
+    kt(330, `${it.name} gevonden!`, 'ok found-title') + kd(450, 'Placeholder: hier komt de tekst bij het voorwerp.', 120, 900) +
     `<div class="a ksym big" style="left:1180px;top:160px">${itemSvg(it, 330)}</div>` +
     legend(640, f) + kbtn('Verder', 'next', 120, 880);
 });

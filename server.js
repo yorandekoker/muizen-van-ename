@@ -20,6 +20,9 @@ const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; cha
 const now = () => Date.now();
 const newId = () => crypto.randomBytes(4).toString('hex');
 const publicState = (s) => (s ? { id: s.id, ...s.state } : null);
+const validItem = (item) => Number.isInteger(item) && item >= 1 && item <= 5;
+const detectableStages = new Set(['keuze', 'info', 'opdr', 'res', 'leg', 'oei']);
+const joinableStages = new Set(['welkom', 'verhaal']);
 
 function sweep() {
   for (const [id, s] of sessions) if (now() - s.updated > IDLE_MS) { sessions.delete(id); if (kioskId === id) kioskId = null; }
@@ -29,6 +32,7 @@ function push(s) { send(s.clients, publicState(s)); if (kioskId === s.id) send(k
 function pushKiosk() { send(kioskClients, publicState(sessions.get(kioskId))); }
 
 function json(res, code, obj) { res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(obj)); }
+function apiError(res, code, message) { return json(res, code, { ok: false, error: message }); }
 function body(req) {
   return new Promise((resolve) => { let d = ''; req.on('data', (c) => { d += c; if (d.length > 1e5) req.destroy(); }); req.on('end', () => { try { resolve(d ? JSON.parse(d) : {}); } catch { resolve({}); } }); });
 }
@@ -66,7 +70,14 @@ async function api(req, res, url) {
     if (own && kioskId === own.id) { own.updated = now(); return json(res, 200, { id: own.id }); }
     const cur = sessions.get(kioskId);
     if (!cur) return json(res, 200, { id: create(true).id });
-    if (!cur.claimed) { cur.claimed = true; cur.updated = now(); return json(res, 200, { id: cur.id }); }
+    if (!cur.claimed) {
+      if (joinableStages.has(cur.state.stage)) {
+        cur.claimed = true; cur.updated = now(); return json(res, 200, { id: cur.id });
+      }
+      sessions.delete(cur.id);
+      if (kioskId === cur.id) kioskId = null;
+      return json(res, 200, { id: create(true).id });
+    }
     if (now() - cur.updated > BUSY_MS || cur.state.stage === 'einde') { endSession(cur); return json(res, 200, { id: create(true).id }); }
     return json(res, 200, { busy: true });
   }
@@ -99,15 +110,26 @@ async function api(req, res, url) {
 
   /* bordjes en de Pi (beveiligd met HW_KEY als die is ingesteld) */
   if (p === '/api/detect' && m === 'POST') {        /* NFC-lezer: { "item": 1..5 } */
-    if (!hwOk(req, url)) return json(res, 401, { error: 'sleutel' });
-    const b = await body(req); const s = sessions.get(kioskId);
-    if (s) act(s, { type: 'detect', item: b.item }); return json(res, 200, { ok: !!s, state: publicState(s) });
-  }
-  if ((mm = p.match(/^\/api\/post\/([1-5])\/(solved|failed)$/)) && m === 'POST') {   /* post 1 tot 3 melden hier */
-    if (!hwOk(req, url)) return json(res, 401, { error: 'sleutel' });
+    if (!hwOk(req, url)) return apiError(res, 401, 'sleutel');
+    const b = await body(req);
+    if (!validItem(b.item)) return apiError(res, 400, 'item moet een geheel getal van 1 tot 5 zijn');
     const s = sessions.get(kioskId);
-    if (s) act(s, { type: mm[2] === 'solved' ? 'solve' : 'fail', item: Number(mm[1]) });
-    return json(res, 200, { ok: !!s });
+    if (!s || !detectableStages.has(s.state.stage)) return apiError(res, 409, 'geen actieve sessie waarin detectie kan');
+    const before = JSON.stringify(s.state);
+    act(s, { type: 'detect', item: b.item });
+    if (JSON.stringify(s.state) === before) return apiError(res, 409, 'detectie is niet uitgevoerd');
+    return json(res, 200, { ok: true, state: publicState(s) });
+  }
+  if ((mm = p.match(/^\/api\/post\/([^/]*)\/(solved|failed)$/)) && m === 'POST') {   /* post 1 tot 3 melden hier */
+    if (!hwOk(req, url)) return apiError(res, 401, 'sleutel');
+    const n = Number(mm[1]);
+    if (!validItem(n)) return apiError(res, 400, 'postnummer moet een geheel getal van 1 tot 5 zijn');
+    const s = sessions.get(kioskId);
+    if (!s || s.state.stage !== 'opdr' || s.state.item !== n) return apiError(res, 409, 'deze post is nu niet actief');
+    const before = JSON.stringify(s.state);
+    act(s, { type: mm[2] === 'solved' ? 'solve' : 'fail', item: n });
+    if (JSON.stringify(s.state) === before) return apiError(res, 409, 'postactie is niet uitgevoerd');
+    return json(res, 200, { ok: true, state: publicState(s) });
   }
   if (p === '/api/health') return json(res, 200, { ok: true, sessions: sessions.size, kiosk: kioskId });
   json(res, 404, { error: 'niet gevonden' });
