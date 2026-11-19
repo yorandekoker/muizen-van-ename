@@ -16,8 +16,9 @@ html,body{margin:0;height:100%;overflow:hidden;background:#fff;font-family:'Fira
 .screen{position:relative;flex:none;width:390px;height:844px;background:#fff;overflow:hidden;transform-origin:center center}
 .screen.ok{background:var(--ok-bg)} .screen.bad{background:var(--bad-bg)}
 .a{position:absolute}
-.phone-body{position:absolute;inset:0;transform:translateY(-72px)}
-.clean-phone .phone-body .btn,.clean-phone .phone-body .link,.clean-phone .phone-body .tmpbtn{transform:translateY(72px)}
+.phone-body{position:absolute;inset:0}
+.clean-phone .phone-body{transform:none}
+.clean-phone .phone-body .tmpbtn{transform:none}
 h1{margin:0;font-size:32px;line-height:36px;font-weight:700;color:var(--orange)}
 h1.navy{color:var(--navy)} h1.ok{color:var(--ok-title)}
 .t{left:24px;width:342px}
@@ -83,10 +84,8 @@ svg{display:block}
 #solve{white-space:nowrap;padding:0 12px;flex:none}
 .tmp select{min-width:0;flex:1}
 .phone-temp-actions{position:absolute;left:24px;right:24px;bottom:12px;height:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;z-index:10}
-.clean-phone .phone-body .phone-temp-actions{transform:translateY(72px)}
+.clean-phone .phone-body .phone-temp-actions{transform:none}
 .tmpbtn{width:100%;height:56px;border:1px solid #999;background:#fff;border-radius:8px;font:700 16px 'Fira Sans',sans-serif;color:var(--navy);cursor:pointer}
 .tmpbtn[data-act="solve"]{border:0;background:var(--orange);color:#fff}
-.clean-phone .phone-body .btn:not(.perm){top:auto!important;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:20}
-.clean-phone .phone-body .link{top:auto!important;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:20}
-.clean-phone .phone-body .link[data-act="back"]{bottom:calc(128px + env(safe-area-inset-bottom,0px))}
-.clean-phone .phone-body .phone-temp-actions{bottom:12px}
+.phone-info-actions{position:absolute;left:24px;right:24px;top:652px;height:136px;display:grid;grid-template-columns:1fr;grid-template-rows:64px 64px;gap:8px;z-index:20}
+.phone-info-actions .link,.phone-info-actions .btn{position:relative;left:auto;top:auto;width:342px;height:64px;transform:none}

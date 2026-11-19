@@ -82,9 +82,16 @@ pEl.addEventListener('click', async (e) => {
 });
 
 function fit() {
-  const box = document.getElementById('pbox').getBoundingClientRect();
-  const vw = window.visualViewport ? window.visualViewport.width : box.width;
-  const vh = window.visualViewport ? window.visualViewport.height : box.height;
+  const box = document.getElementById('pbox');
+  const vv = window.visualViewport;
+  const vw = vv ? vv.width : box.getBoundingClientRect().width;
+  const vh = vv ? vv.height : box.getBoundingClientRect().height;
+  box.style.width = `${vw}px`;
+  box.style.height = `${vh}px`;
+  box.style.left = vv ? `${vv.offsetLeft}px` : '0';
+  box.style.top = vv ? `${vv.offsetTop}px` : '0';
+  box.style.right = 'auto';
+  box.style.bottom = 'auto';
   pEl.style.transform = `scale(${Math.min(vw / 390, vh / 844)})`;
 }
 addEventListener('resize', fit);

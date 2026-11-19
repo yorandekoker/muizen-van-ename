@@ -138,7 +138,7 @@ ITEMS.forEach((it, i) => {
   PHONE['info' + (i + 1)] = { id: 'info' + (i + 1), role: ROLE_ALL, body:
     `<div class="a card" style="left:24px;top:148px;width:342px;height:200px;display:flex;align-items:center;justify-content:center">${itemSvg(it, 150)}</div>` +
     title(376, it.name, 'navy') + desc(428, 'Placeholder: hier komt de info over de opdracht.') +
-    primary('Naar de opdracht', 'to_task') + `<button class="a link" type="button" data-act="back" style="top:652px">&lt; Kies een ander voorwerp</button>` };
+    `<div class="phone-info-actions"><button class="link" type="button" data-act="back">&lt; Kies een ander voorwerp</button>${primary('Naar de opdracht', 'to_task')}</div>` };
 });
 
 /* ======================================================================
