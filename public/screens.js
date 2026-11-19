@@ -71,7 +71,7 @@ const itemSvg = (it, size) => `<svg width="${size}" height="${size}" viewBox="-2
 /* volgorde = volgorde van de tijdelijke navigatie. primaire knoppen springen naar het scherm met de opgegeven id */
 const SCREENS = [
   { id: 'welkom', name: '1 · Welkom', role: ROLE_ALL, body: (st, ctx) =>
-    title(136, 'Welkom') + desc(188, ctx && ctx.busy ? 'Het muizenhol wordt nu door een ander gezin gebruikt. Probeer het zo meteen opnieuw.' : 'Klik om verder te gaan.') + family(24, 240, false) + primary('Verder', 'start') },
+    title(136, 'Welkom') + desc(188, ctx && ctx.busy ? 'Het muizenhol wordt nu door een ander gezin gebruikt. Probeer het zo meteen opnieuw.' : 'Klik om verder te gaan.') + family(24, 240, false) + `<button class="a btn phone-welcome-btn" data-act="start">&gt; Verder</button>` },
   { id: 'post1', name: '3 · Post 1 · Kabels', role: ROLE_DUO, body:
     title(151, 'Verbind de kabels', 'navy') +
     desc(203, 'Kind: verbind de vier koorden met het contact met hetzelfde symbool. Volwassene: lees het patroon voor.') +

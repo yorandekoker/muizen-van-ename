@@ -40,6 +40,25 @@ function setState(st) {
 }
 /* vangnet: elke 1,5 seconde de toestand ophalen, voor als de live verbinding niet werkt */
 setInterval(() => { if (!sid) return; fetch(`/api/sessions/${sid}`, { cache: 'no-store' }).then(r => r.json()).then(setState).catch(() => {}); }, 1500);
+let autoJoining = false;
+setInterval(() => {
+  if (sid || autoJoining) return;
+  fetch('/api/kiosk', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(async (st) => {
+      if (!st || st.stage === 'welkom') return;
+      autoJoining = true;
+      const r = await post('/api/join', {});
+      if (r && r.id) {
+        ctx = {};
+        saveSid(r.id);
+        openStream();
+        fetch(`/api/sessions/${r.id}`, { cache: 'no-store' }).then(x => x.json()).then(setState).catch(() => {});
+      }
+      autoJoining = false;
+    })
+    .catch(() => { autoJoining = false; });
+}, 1500);
 function closeStream() { if (es) { es.close(); es = null; } }
 function openStream() {
   closeStream(); if (!sid) return;
