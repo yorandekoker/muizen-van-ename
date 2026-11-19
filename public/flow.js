@@ -52,7 +52,8 @@
       case 'verhaal': return { k: 'verhaal', p: 'kijkVerhaal' };
       case 'keuze': return { k: 'keuze', p: 'kijkKeuze' };
       case 'info': return { k: 'info' + n, p: 'info' + n };
-      case 'opdr': return { k: 'keuze', p: 'post' + n };
+      /* De kiosk blijft bij de uitleg tot de gsm expliciet "Terug" meldt. */
+      case 'opdr': return { k: 'info' + n, p: 'post' + n };
       case 'res': return { k: 'keuze', p: n <= 3 ? 'gelukt' : 'code' };
       case 'leg': return { k: 'keuze', p: 'kijkLeg' };
       case 'oei': return { k: 'keuze', p: 'oei' };

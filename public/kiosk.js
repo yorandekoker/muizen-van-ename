@@ -7,6 +7,7 @@ const post = (url, body) => fetch(url, { method: 'POST', headers: { 'Content-Typ
 function render() {
   const id = Flow.view(state).k;
   const found = new Set(((state && state.found) || []).map(n => ITEMS[n - 1].id));
+  document.getElementById('kbox').className = 'full kfull' + (id.startsWith('gevonden') ? ' ok' : '');
   kEl.className = 'kscreen' + (id.startsWith('gevonden') ? ' ok' : '');
   kEl.innerHTML = KIOSK[id](found);
 }

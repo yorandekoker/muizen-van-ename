@@ -124,14 +124,15 @@ const SCREENS = [
    ====================================================================== */
 const monitorIcon = '<svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#2A4F69" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="10" width="44" height="30" rx="4"/><path d="M20 48h16M28 40v8"/></svg>';
 const kijk = (id, ttl, txt) => ({ id, role: ROLE_ALL, body:
-  symbolCircle(151, 150, monitorIcon) + title(272, ttl, 'navy') + desc(324, txt) + family(24, 520, true) });
+  symbolCircle(151, 150, monitorIcon) + title(272, ttl, 'navy') + desc(380, txt) + family(24, 520, true) });
 const PHONE = Object.fromEntries(SCREENS.map(s => [s.id, s]));
 /* TIJDELIJK: terug naar het overzicht en de opdracht als voltooid markeren, tot de echte posten werken */
-const tempBar = `<button class="a tmpbtn" data-act="back" style="left:24px">&lt; Terug</button><button class="a tmpbtn" data-act="solve" style="left:201px">Opdracht voltooien</button>`;
+const tempBar = `<button class="a tmpbtn" type="button" data-act="back" style="left:24px">&lt; Terug</button><button class="a tmpbtn" type="button" data-act="solve" style="left:201px">Opdracht voltooien</button>`;
 for (let n = 1; n <= 5; n++) PHONE['post' + n].body += tempBar;
 PHONE.kijkVerhaal = kijk('kijkVerhaal', 'Ga naar het muizenhol', 'Het verhaal speelt af op het scherm in het muizenhol. Kijk goed mee!');
 PHONE.kijkKeuze = kijk('kijkKeuze', 'Kies een voorwerp', 'Kies op het scherm in het muizenhol wat jullie willen zoeken.');
 PHONE.kijkLeg = kijk('kijkLeg', 'Leg het voorwerp op de lezer', 'Leg het voorwerp bij het muizenhol op de lezer en kijk naar het scherm.');
+PHONE.kijkLeg.body += primary('Voorwerp op de lezer leggen', 'detect');
 PHONE.kijkGevonden = kijk('kijkGevonden', 'Goed zo!', 'Het voorwerp is herkend. Kijk naar het scherm in het muizenhol.');
 ITEMS.forEach((it, i) => {
   PHONE['info' + (i + 1)] = { id: 'info' + (i + 1), role: ROLE_ALL, body:
