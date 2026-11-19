@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>De muizen van Ename · demo</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="stage">
+  <div class="dev kdev"><div class="cap">Kiosk · muizenhol</div><div class="box" id="kbox"><div class="kscreen" id="kscreen"></div></div></div>
+  <div class="dev pdev"><div class="cap">Smartphone</div><div class="box" id="pbox"><div class="screen" id="pscreen"></div></div></div>
+</div>
+<nav class="tmp" aria-label="Demo: spring naar een scherm of doe alsof een bordje of de lezer iets meldt">
+  <button id="prev" aria-label="Vorige">&#9664;</button>
+  <select id="pick" aria-label="Kies een toestand"></select>
+  <button id="nxt" aria-label="Volgende">&#9654;</button>
+  <button id="solve" type="button" title="Doet alsof de post of de gsm meldt dat de opdracht gelukt is">Opdracht gelukt</button>
+  <select id="det" aria-label="Voorwerp op de lezer"><option value="">Voorwerp op de lezer…</option></select>
+</nav>
+<script src="config.js"></script><script src="flow.js"></script><script src="screens.js"></script><script src="demo.js"></script>
+</body>
+</html>
