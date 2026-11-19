@@ -15,7 +15,7 @@ const sessions = new Map();        /* id -> { id, state, claimed, updated, clien
 let kioskId = null;                /* sessie die nu op de kiosk staat */
 const kioskClients = new Set();
 
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.woff2': 'font/woff2', '.png': 'image/png', '.svg': 'image/svg+xml', '.json': 'application/json', '.gif': 'image/gif', '.ico': 'image/x-icon' };
+const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.woff2': 'font/woff2', '.png': 'image/png', '.svg': 'image/svg+xml', '.json': 'application/json', '.gif': 'image/gif', '.mp4': 'video/mp4', '.ico': 'image/x-icon' };
 
 const now = () => Date.now();
 const newId = () => crypto.randomBytes(4).toString('hex');

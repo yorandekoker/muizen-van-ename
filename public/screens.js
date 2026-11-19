@@ -55,6 +55,9 @@ const helpLink = () => `<button class="a link" type="button">&gt; Ik heb hulp no
 const hint = (left, top, color, text) => `<div class="a hint" style="left:${left}px;top:${top}px">${I.vib(color)}<span>${text}</span></div>`;
 const codeBoxes = (top, code) => `<div class="a" style="left:24px;top:${top}px;width:342px;height:96px" role="group" aria-label="Code: ${code.join(' ')}">${code.map((c, i) => `<div class="a codebox" style="left:${i * 119.33}px">${c}</div>`).join('')}</div>`;
 const symbolCircle = (left, top, icon) => `<div class="a symbol" style="left:${left}px;top:${top}px">${icon}</div>`;
+const phoneAnimation = (n) => `<img class="phone-animation" src="animations/opd${n}.gif" alt="Uitleg opdracht ${n}" loading="eager">`;
+const kioskAnimation = (n) => `<img class="kiosk-animation" src="animations/opd${n}.gif" alt="Uitleg opdracht ${n}" loading="eager">`;
+const completeAnimation = (n) => `<img class="complete-animation" src="animations/opd${n}_complete.gif" alt="" loading="eager">`;
 
 
 const OR = '#C86B02';
@@ -104,10 +107,10 @@ const SCREENS = [
     `<div class="a track" style="top:350px"><i id="noise" style="width:0"></i></div><div class="a scale" style="top:389px"><span>muisstil</span><span>te luid</span></div>` +
     hint(24, 435, 'var(--orange)', 'Je gsm trilt als je te veel beweegt') + helpLink() },
   { id: 'gelukt', name: '8 · Gelukt (post 1 tot 3)', role: ROLE_ALL, tone: 'ok', body:
-    symbolCircle(24, 279, I.check) + mouseGroup(113, 266, false, '#C6E0BD') +
+    (st) => `<div class="a complete-phone" style="left:24px;top:248px">${completeAnimation(st.item)}</div>` +
     title(478, 'Gelukt! De muizen zijn blij', 'ok') + desc(574, 'Het doosje wordt nu geopend') + primary('Ga verder', 'to_leg') },
   { id: 'code', name: '9 · Goed gedaan met code (post 4 en 5)', role: ROLE_ALL, tone: 'ok', body: (st) =>
-    symbolCircle(62, 280, I.check) + mouseGroup(161, 248, false, '#C6E0BD') +
+    `<div class="a complete-phone" style="left:24px;top:248px">${completeAnimation(st.item)}</div>` +
     title(475, 'Goed gedaan!', 'ok') + desc(535, 'De code van het kistje is') + codeBoxes(579, (CONFIG.CODES[st.item] || ['?', '?', '?'])) + primary('Ga verder', 'to_leg') },
   { id: 'oei', name: '10 · Oei, fout', role: ROLE_DUO, tone: 'bad', body:
     `<svg class="a" style="left:24px;top:279px" width="342" height="210" viewBox="0 0 342 210">${groundEl(100, 185, 200, 18, '#EBCFC9')}${mouse(119, 10, 156, 180, true)}</svg>` +
@@ -136,8 +139,8 @@ PHONE.kijkLeg.body += primary('Voorwerp op de lezer leggen', 'detect');
 PHONE.kijkGevonden = kijk('kijkGevonden', 'Goed zo!', 'Het voorwerp is herkend. Kijk naar het scherm in het muizenhol.');
 ITEMS.forEach((it, i) => {
   PHONE['info' + (i + 1)] = { id: 'info' + (i + 1), role: ROLE_ALL, body:
-    `<div class="a card" style="left:24px;top:148px;width:342px;height:200px;display:flex;align-items:center;justify-content:center">${itemSvg(it, 150)}</div>` +
-    title(376, it.name, 'navy') + desc(428, 'Placeholder: hier komt de info over de opdracht.') +
+    `<div class="a card phone-explanation" style="left:24px;top:148px;width:342px;height:200px">${phoneAnimation(i + 1)}</div>` +
+    title(376, it.name, 'navy') +
     `<div class="phone-info-actions"><button class="link" type="button" data-act="back">&lt; Kies een ander voorwerp</button>${primary('Naar de opdracht', 'to_task')}</div>` };
 });
 
@@ -156,7 +159,7 @@ function legend(top, found) {
 }
 const KIOSK = {
   welkom: () => kt(180, 'Welkom') + kd(310, 'Klik om verder te gaan.') + family(960, 330, false, null, 2.4) + kbtn('Verder', 'start'),
-  verhaal: () => kd(180, 'hier speelt verhaal af', 120, 1200) + kbtn('Verder', 'story_done'),
+  verhaal: () => `<div class="kintro"><video id="introVideo" muted playsinline preload="auto" controlslist="nodownload noplaybackrate nofullscreen" disablepictureinpicture aria-label="Intro van het muizenverhaal"><source src="animations/intro.mp4" type="video/mp4"></video><button class="intro-play" type="button" data-act="play_intro" aria-label="Speel de intro af"><span aria-hidden="true">▶</span></button></div>`,
   keuze: (f) => kt(100, 'Wat zoeken we?') + kd(220, 'Tik op een voorwerp om de opdracht te zien.') +
     ITEMS.map((it, i) => `<button type="button" class="a kcard ktile" data-act="pick" data-item="${i + 1}"${f.has(it.id) ? ' disabled' : ''} style="left:${80 + i * 360}px;top:310px;width:320px;height:300px">${itemSvg(it, 170)}<span>${it.name}</span></button>`).join('') +
     legend(690, f),
@@ -164,8 +167,8 @@ const KIOSK = {
 };
 ITEMS.forEach((it, i) => {
   KIOSK['info' + (i + 1)] = () =>
-    `<div class="a kcard" style="left:120px;top:240px;width:640px;height:640px;display:flex;align-items:center;justify-content:center">${itemSvg(it, 420)}</div>` +
-    kt(250, it.name, 'navy', 860) + kd(390, 'Placeholder: hier komt de info over de opdracht.', 860, 900) +
+    `<div class="a kcard k-explanation" style="left:120px;top:240px;width:640px;height:640px">${kioskAnimation(i + 1)}</div>` +
+    kt(250, it.name, 'navy', 860) +
     kbtn('Naar de opdracht', 'to_task', 860, 640) + klink('&lt; Kies een ander voorwerp', 'back', 860, 800);
   KIOSK['gevonden' + (i + 1)] = (f) =>
     `<div class="a ksym" style="left:120px;top:120px">${I.check.replace('width="56" height="56"', 'width="100" height="100"')}</div>` +

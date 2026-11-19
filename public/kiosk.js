@@ -13,8 +13,24 @@ function render() {
 }
 kEl.addEventListener('click', (e) => {
   const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
+  if (b.dataset.act === 'play_intro') {
+    const video = document.getElementById('introVideo');
+    if (video) {
+      video.play().then(() => {
+        b.classList.add('is-playing');
+        setTimeout(() => { b.hidden = true; }, 320);
+      }).catch(() => {
+        b.classList.remove('is-playing');
+      });
+    }
+    return;
+  }
   post('/api/kiosk/action', { type: b.dataset.act, item: b.dataset.item ? Number(b.dataset.item) : undefined }).then(r => { if (r && r.stage) setState(r); });
 });
+kEl.addEventListener('ended', (e) => {
+  if (e.target.id !== 'introVideo') return;
+  post('/api/kiosk/action', { type: 'story_done' }).then(r => { if (r && r.stage) setState(r); });
+}, true);
 function fit() {
   const box = document.getElementById('kbox').getBoundingClientRect();
   kEl.style.transform = `scale(${Math.min(box.width / 1920, box.height / 1080)})`;

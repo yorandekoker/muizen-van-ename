@@ -1,4 +1,4 @@
-/* Instellingen die je zelf invult. */
+/* Instellingen  */
 const CONFIG = {
   /* Codes die na post 4 en 5 verschijnen, per voorwerp (voorwerp 4 = post 4). Dit zijn de codes van de cijferslotjes. */
   CODES: { 4: ['4', '1', '7'], 5: ['4', '1', '7'] },
